@@ -62,14 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
-                  childAspectRatio: 170 / 270,
+                  mainAxisExtent: 285,
                 ),
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(10),
                     width: 170,
-                    height: 270,
+                    height: 275,
                     decoration: BoxDecoration(
                       color: Color(0xffEFFFFF),
                       borderRadius: BorderRadius.circular(16),
