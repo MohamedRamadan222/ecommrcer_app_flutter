@@ -4,8 +4,17 @@ import 'app_styles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String title;
+  final double? height;
+  final double? width;
+  final double? radius;
 
-  const CustomElevatedButton({super.key, required this.title});
+  const CustomElevatedButton({
+    super.key,
+    required this.title,
+    this.height,
+    this.width,
+    this.radius,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +27,10 @@ class CustomElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xff1C1917),
         foregroundColor: Colors.white,
-        minimumSize: const Size(double.infinity, 54),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        minimumSize: Size(width ?? double.infinity, height ?? 54),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius ?? 16),
+        ),
 
         elevation: 3, // Subtle shadow
       ),

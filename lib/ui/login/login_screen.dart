@@ -16,41 +16,43 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            LogoSection(),
-            Gap(20),
-            LoginForm(),
-            Gap(20),
-            CustomElevatedButton(title: 'تسجيل الدخول'),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'إنشاء حساب',
-                  style: AppStyles.bold13.copyWith(
-                    color: Color(0xffB4835B),
-                    fontSize: 16,
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              LogoSection(),
+              Gap(20),
+              LoginForm(),
+              Gap(20),
+              CustomElevatedButton(title: 'تسجيل الدخول'),
+              Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'إنشاء حساب',
+                    style: AppStyles.bold13.copyWith(
+                      color: Color(0xffB4835B),
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                Gap(2),
-                Text(
-                  'ليس لديك حساب؟',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff8D857C),
+                  Gap(2),
+                  Text(
+                    'ليس لديك حساب؟',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff8D857C),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Gap(14),
-          ],
+                ],
+              ),
+              Gap(16),
+            ],
+          ),
         ),
       ),
     );
