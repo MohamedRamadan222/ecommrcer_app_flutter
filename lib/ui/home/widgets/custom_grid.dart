@@ -1,0 +1,112 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gap/gap.dart';
+
+import '../../constants/app_styles.dart';
+
+class CustomGrid extends StatefulWidget {
+  const CustomGrid({super.key});
+
+  @override
+  State<CustomGrid> createState() => _CustomGridState();
+}
+
+class _CustomGridState extends State<CustomGrid> {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        mainAxisExtent: 245,
+      ),
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Container(
+          padding: EdgeInsets.all(10),
+          width: 170,
+          height: 275,
+          decoration: BoxDecoration(
+            color: Color(0xffEFFFFF),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 148,
+                    height: 168,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE7DFD4),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: FaIcon(
+                        FontAwesomeIcons.shirt,
+                        color: Color(0xff1C1917).withValues(alpha: 0.2),
+                      ),
+                    ),
+                  ),
+                  Gap(8),
+                  Text(
+                    'فستان كتان مطرز',
+                    style: AppStyles.bold13.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  Gap(8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        textDirection: TextDirection.rtl,
+                        '349 ر.س',
+                        style: AppStyles.bold13.copyWith(
+                          color: Color(0xffB4835B),
+                          fontSize: 14,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '4.8',
+                            style: TextStyle(
+                              color: Color(0xff8D857C),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Icon(Icons.star, size: 12, color: Color(0xffE8A33D)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Positioned(
+                top: 8,
+                left: 8,
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(80),
+                  ),
+                  child: Icon(CupertinoIcons.heart, size: 20),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
