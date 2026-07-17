@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../../constants/app_colors.dart';
 import '../../constants/app_styles.dart';
 import '../../constants/custom_elevated_button.dart';
 
-class DiscountBanner extends StatefulWidget {
+class DiscountBanner extends StatelessWidget {
   const DiscountBanner({super.key});
 
-  @override
-  State<DiscountBanner> createState() => _DiscountBannerState();
-}
-
-class _DiscountBannerState extends State<DiscountBanner> {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 170,
-
       decoration: BoxDecoration(
-        color: Color(0xffF4EDE6),
+        color: AppColors.discountBannerBg,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Stack(
@@ -31,7 +26,7 @@ class _DiscountBannerState extends State<DiscountBanner> {
               width: 140,
               height: 140,
               decoration: BoxDecoration(
-                color: Color(0xffECDED4),
+                color: AppColors.circleLight,
                 borderRadius: BorderRadius.circular(80),
               ),
             ),
@@ -43,37 +38,40 @@ class _DiscountBannerState extends State<DiscountBanner> {
               width: 140,
               height: 140,
               decoration: BoxDecoration(
-                color: Color(0xffF0E6DE),
+                color: AppColors.circleDark,
                 borderRadius: BorderRadius.circular(80),
               ),
             ),
           ),
           Positioned(
-            top: 22,
-            right: 22,
-            bottom: 22,
+            top: 16,
+            right: 16,
+            bottom: 16,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   'تخفيضات الموسم',
-                  style: AppStyles.bold13.copyWith(color: Color(0xffB4835B)),
+                  style: AppStyles.bold13.copyWith(color: AppColors.primary),
                 ),
+                const Gap(4),
                 Text(
                   'خصم حتى 30% على التشكيلة\nالصيفية',
                   textAlign: TextAlign.right,
                   style: AppStyles.bold13.copyWith(
                     color: Colors.black,
-                    fontSize: 22,
+                    fontSize: 20,
+                    height: 1.2,
                   ),
                 ),
-                Gap(8),
+                const Gap(8),
                 CustomElevatedButton(
                   width: 108,
-                  height: 40,
+                  height: 36,
                   radius: 999,
                   title: 'تسوّقي الآن',
+                  onPressed: () {},
                 ),
               ],
             ),

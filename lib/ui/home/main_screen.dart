@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../account/account_screen.dart';
 import '../cart/cart_screen.dart';
 import '../categories/categories_screen.dart';
+import '../constants/app_colors.dart';
 import '../favorite/favorite_screen.dart';
 import 'home_screen.dart';
 
@@ -36,9 +37,9 @@ class _MainScreenState extends State<MainScreen> {
             currentIndex = index;
           });
         },
-        selectedItemColor: const Color(0xffB4835B),
-        unselectedItemColor: const Color(0xffA8A099),
-        backgroundColor: const Color(0xffEDE8E1),
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.textHint,
+        backgroundColor: AppColors.navbarBg,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         iconSize: 24,

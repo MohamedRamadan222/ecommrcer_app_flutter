@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../constants/app_colors.dart';
+
 class LogoSection extends StatelessWidget {
   const LogoSection({super.key});
 
@@ -14,12 +16,12 @@ class LogoSection extends StatelessWidget {
         Gap(10),
         Center(child: SvgPicture.asset('assets/svgs/2.svg')),
         Gap(10),
-        Text(
+        const Text(
           'أزياء تليق بكِ، كل يوم',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: Color(0xff8D857C),
+            color: AppColors.textSecondary,
           ),
         ),
         Gap(20),

@@ -1,21 +1,16 @@
 import 'package:ecommerce_app/ui/home/widgets/category_selector.dart';
 import 'package:ecommerce_app/ui/home/widgets/custom_app_bar.dart';
 import 'package:ecommerce_app/ui/home/widgets/custom_grid.dart';
-import 'package:ecommerce_app/ui/home/widgets/custom_textField_home_screen.dart';
+import 'package:ecommerce_app/ui/home/widgets/custom_text_field_home_screen.dart';
 import 'package:ecommerce_app/ui/home/widgets/discount_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_styles.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: AppStyles.bold13.copyWith(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
-                      color: Color(0xffB4835B),
+                      color: AppColors.primary,
                     ),
                   ),
                   Text(

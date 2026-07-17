@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'app_colors.dart';
 import 'app_styles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -7,6 +8,8 @@ class CustomElevatedButton extends StatelessWidget {
   final double? height;
   final double? width;
   final double? radius;
+  final VoidCallback? onPressed;
+  final Widget? icon;
 
   const CustomElevatedButton({
     super.key,
@@ -14,26 +17,39 @@ class CustomElevatedButton extends StatelessWidget {
     this.height,
     this.width,
     this.radius,
+    this.onPressed,
+    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: () {},
-      label: Text(
-        title,
-        style: AppStyles.bold13.copyWith(color: Colors.white, fontSize: 18),
+    final label = Text(
+      title,
+      style: AppStyles.bold13.copyWith(color: Colors.white, fontSize: 18),
+    );
+    final style = ElevatedButton.styleFrom(
+      backgroundColor: AppColors.black,
+      foregroundColor: Colors.white,
+      minimumSize: Size(width ?? double.infinity, height ?? 54),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radius ?? 16),
       ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xff1C1917),
-        foregroundColor: Colors.white,
-        minimumSize: Size(width ?? double.infinity, height ?? 54),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radius ?? 16),
-        ),
+      elevation: 3,
+    );
 
-        elevation: 3, // Subtle shadow
-      ),
+    if (icon != null) {
+      return ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: icon!,
+        label: label,
+        style: style,
+      );
+    }
+
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: style,
+      child: label,
     );
   }
 }

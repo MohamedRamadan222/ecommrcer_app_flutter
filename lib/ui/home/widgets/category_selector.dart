@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/app_colors.dart';
 import '../../constants/app_styles.dart';
 
 class CategorySelector extends StatefulWidget {
@@ -33,16 +34,16 @@ class _CategorySelectorState extends State<CategorySelector> {
                 height: 33,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: selectedIndex == index ? Colors.black : Colors.white,
+                  color: selectedIndex == index ? AppColors.black : AppColors.white,
                   borderRadius: BorderRadius.circular(32),
-                  border: Border.all(color: Color(0xffE2DCD3), width: 1),
+                  border: Border.all(color: AppColors.fieldBorder, width: 1),
                 ),
                 child: Text(
                   'عبايات',
                   style: AppStyles.bold13.copyWith(
                     color: selectedIndex == index
-                        ? Colors.white
-                        : const Color(0xff6B645C),
+                        ? AppColors.white
+                        : AppColors.textUnselected,
                   ),
                 ),
               ),

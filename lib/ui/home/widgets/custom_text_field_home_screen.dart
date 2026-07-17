@@ -2,15 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-class CustomTextFieldHomeScreen extends StatefulWidget {
+class CustomTextFieldHomeScreen extends StatelessWidget {
   const CustomTextFieldHomeScreen({super.key});
 
-  @override
-  State<CustomTextFieldHomeScreen> createState() =>
-      _CustomTextFieldHomeScreenState();
-}
-
-class _CustomTextFieldHomeScreenState extends State<CustomTextFieldHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,9 +17,8 @@ class _CustomTextFieldHomeScreenState extends State<CustomTextFieldHomeScreen> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: TextFormField(
-              obscureText: true,
-              style: TextStyle(
+child: TextFormField(
+               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2,

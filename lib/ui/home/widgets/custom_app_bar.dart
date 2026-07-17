@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../constants/app_colors.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 
@@ -21,15 +23,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'مرحبًا سارة',
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: Color(0xff8D857C),
+              color: AppColors.textSecondary,
             ),
           ),
-          Gap(4),
+          const Gap(4),
           SvgPicture.asset('assets/svgs/2.svg'),
         ],
       ),
@@ -39,11 +41,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Container(
             width: 50,
             height: 50,
-            padding: EdgeInsets.all(9),
+            padding: const EdgeInsets.all(9),
             decoration: BoxDecoration(
-              color: Color(0xffFFFFFF),
+              color: AppColors.white,
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: Color(0xffE2DCD3), width: 1.5),
+              border: Border.all(color: AppColors.fieldBorder, width: 1.5),
             ),
             child: Stack(
               alignment: Alignment.center,

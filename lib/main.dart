@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/ui/constants/app_colors.dart';
+import 'package:ecommerce_app/ui/details/details_screen.dart';
 import 'package:ecommerce_app/ui/home/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.almaraiTextTheme(),
       ),
-      home: MainScreen(),
+      home: DetailsScreen(),
     );
   }
 }
