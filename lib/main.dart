@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/ui/checkout/checkout_screen.dart';
 import 'package:ecommerce_app/ui/constants/app_colors.dart';
 import 'package:ecommerce_app/ui/details/details_screen.dart';
 import 'package:ecommerce_app/ui/home/main_screen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.almaraiTextTheme(),
       ),
-      home: DetailsScreen(),
+      home: CheckoutScreen(),
     );
   }
 }
