@@ -1,12 +1,24 @@
-import 'package:ecommerce_app/ui/checkout/checkout_screen.dart';
-import 'package:ecommerce_app/ui/constants/app_colors.dart';
-import 'package:ecommerce_app/ui/details/details_screen.dart';
-import 'package:ecommerce_app/ui/home/main_screen.dart';
+import 'package:ecommerce_app/core/storage/secure_hive_helper.dart';
+import 'package:ecommerce_app/core/storage/token_storage.dart';
+import 'package:ecommerce_app/core/storage/user_storage.dart';
+import 'package:ecommerce_app/data/models/user_model.dart';
+import 'package:ecommerce_app/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ecommerce_app/cubits/auth/auth_cubit.dart';
+import 'package:ecommerce_app/data/repositories/auth_repository.dart';
+import 'package:ecommerce_app/data/datasources/auth_remote_data_source.dart';
+import 'package:ecommerce_app/ui/login/login_screen.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(UserModelAdapter());
+
+  await SecureHiveHelper.openUserBox();
 
   runApp(const MyApp());
 }
@@ -16,16 +28,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.bg,
-        appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.bg,
+    final authRemoteDataSource = AuthRemoteDataSource();
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(AuthRepository(authRemoteDataSource)),
         ),
-        textTheme: GoogleFonts.almaraiTextTheme(),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: UserStorage.isLoggedIn ? const HomeScreen() : const LoginScreen(),
       ),
-      home: CheckoutScreen(),
     );
   }
 }
