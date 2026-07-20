@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/storage/user_storage.dart';
 import 'package:ecommerce_app/cubits/auth/auth_state.dart';
-import 'package:ecommerce_app/data/repositories/auth_repository.dart';
+import 'package:ecommerce_app/data/login/repositories/auth_repository.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository repository;
@@ -13,8 +13,6 @@ class AuthCubit extends Cubit<AuthState> {
     required String username,
     required String password,
   }) async {
-    print('${username}اليوز');
-    print('${password}باس');
     emit(state.copyWith(status: AuthStatus.loading));
 
     try {
@@ -25,7 +23,6 @@ class AuthCubit extends Cubit<AuthState> {
       await UserStorage.saveUser(user);
       emit(state.copyWith(status: AuthStatus.success));
     } on DioException catch (e) {
-      print('errrrrrr${e}');
       if (e.response?.statusCode == 400) {
         emit(
           state.copyWith(

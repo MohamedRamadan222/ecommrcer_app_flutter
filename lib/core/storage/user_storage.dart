@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/core/storage/secure_hive_helper.dart';
-import 'package:ecommerce_app/data/models/user_model.dart';
+import 'package:ecommerce_app/data/login/models/user_model.dart';
 import 'package:hive/hive.dart';
+
+import '../../data/login/models/user_model.dart';
 
 class UserStorage {
   UserStorage._();

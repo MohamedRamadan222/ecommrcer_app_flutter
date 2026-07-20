@@ -1,6 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/network/dio_client.dart';
-import 'package:ecommerce_app/data/models/user_model.dart';
+import 'package:ecommerce_app/data/login/models/user_model.dart';
 
 class AuthRemoteDataSource {
 

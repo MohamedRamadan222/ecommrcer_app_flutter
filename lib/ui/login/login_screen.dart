@@ -53,17 +53,28 @@ class _LoginScreenState extends State<LoginScreen> {
             builder: (context, state) {
               return SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 40,bottom: 24),
+                  padding: const EdgeInsets.only(top: 40, bottom: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       const LogoSection(),
                       const Gap(20),
-                      LoginForm(usernameController: _usernameController, passwordController: _passwordController,),
+                      LoginForm(
+                        usernameController: _usernameController,
+                        passwordController: _passwordController,
+                      ),
                       Gap(20),
-                      CustomElevatedButton(title: 'تسجيل الدخول', onPressed: state.status == AuthStatus.loading ? null :(){
-                        context.read<AuthCubit>().login(username: _usernameController.text, password: _passwordController.text);
-                      }),
+                      CustomElevatedButton(
+                        title: 'تسجيل الدخول',
+                        onPressed: state.status == AuthStatus.loading
+                            ? null
+                            : () {
+                                context.read<AuthCubit>().login(
+                                  username: _usernameController.text,
+                                  password: _passwordController.text,
+                                );
+                              },
+                      ),
                       const Gap(40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
