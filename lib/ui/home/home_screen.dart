@@ -1,9 +1,7 @@
 import 'package:ecommerce_app/cubits/home/categories/categories_cubit.dart';
 import 'package:ecommerce_app/cubits/home/products/products_cubit.dart';
 import 'package:ecommerce_app/ui/home/widgets/categories_selector_section.dart';
-import 'package:ecommerce_app/ui/home/widgets/category_selector.dart';
 import 'package:ecommerce_app/ui/home/widgets/custom_app_bar.dart';
-import 'package:ecommerce_app/ui/home/widgets/custom_grid.dart';
 import 'package:ecommerce_app/ui/home/widgets/custom_text_field_home_screen.dart';
 import 'package:ecommerce_app/ui/home/widgets/discount_banner.dart';
 import 'package:ecommerce_app/ui/home/widgets/products_grid_section.dart';

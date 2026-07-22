@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/data/home/models/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,13 +7,27 @@ import 'package:gap/gap.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_styles.dart';
 import 'widgets/add_to_cart_bar.dart';
-import 'widgets/color_selector.dart';
 import 'widgets/details_action_button.dart';
 import 'widgets/image_gallery_indicator.dart';
-import 'widgets/size_selector.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+class DetailsScreen extends StatefulWidget {
+  final ProductModel product;
+
+  const DetailsScreen({super.key, required this.product});
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  final PageController _pageController = PageController();
+  int _currentImageIndex = 0;
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +37,7 @@ class DetailsScreen extends StatelessWidget {
         bottom: false,
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              _buildProductImage(),
-
-              _buildProductDetails(),
-            ],
+            children: [_buildProductImage(), _buildProductDetails()],
           ),
         ),
       ),
@@ -34,52 +45,73 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _buildProductImage() {
+    final List<String> images = widget.product.images.isNotEmpty
+        ? widget.product.images
+        : [widget.product.thumbnail];
+
     return Container(
       width: double.infinity,
       height: 280,
       color: AppColors.placeholderBg,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 16,
-      ),
-      child: Column(
+      child: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DetailsActionButton(
-                icon: const Icon(
-                  CupertinoIcons.heart,
-                  size: 18,
-                ),
-                onTap: () {},
-              ),
-
-              DetailsActionButton(
-                icon: const Icon(
-                  CupertinoIcons.chevron_right,
-                  size: 18,
-                ),
-                onTap: () {},
-              ),
-            ],
+          PageView.builder(
+            controller: _pageController,
+            itemCount: images.length,
+            onPageChanged: (index) {
+              setState(() {
+                _currentImageIndex = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              return Image.network(
+                images[index],
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: FaIcon(
+                      FontAwesomeIcons.shirt,
+                      size: 60,
+                      color: AppColors.black.withValues(alpha: 0.1),
+                    ),
+                  );
+                },
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+                  return const Center(child: CircularProgressIndicator());
+                },
+              );
+            },
           ),
 
-          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DetailsActionButton(
+                  icon: const Icon(CupertinoIcons.heart, size: 18),
+                  onTap: () {},
+                ),
 
-          FaIcon(
-            FontAwesomeIcons.shirt,
-            size: 60,
-            color: AppColors.black.withValues(
-              alpha: 0.1,
+                DetailsActionButton(
+                  icon: const Icon(CupertinoIcons.chevron_right, size: 18),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
           ),
 
-          const Spacer(),
-
-          const ImageGalleryIndicator(
-            count: 3,
-            selectedIndex: 0,
+          Positioned(
+            bottom: 16,
+            left: 0,
+            right: 0,
+            child: ImageGalleryIndicator(
+              count: images.length,
+              selectedIndex: _currentImageIndex,
+            ),
           ),
         ],
       ),
@@ -89,12 +121,7 @@ class DetailsScreen extends StatelessWidget {
   Widget _buildProductDetails() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(
-        16,
-        16,
-        16,
-        24,
-      ),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -106,14 +133,6 @@ class DetailsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildProductHeader(),
-
-          const Gap(20),
-
-          _buildColorSection(),
-
-          const Gap(20),
-
-          _buildSizeSection(),
 
           const Gap(20),
 
@@ -131,13 +150,12 @@ class DetailsScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // السعر
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '289 ر.س',
+              Text(
+                widget.product.price.toString(),
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
                   fontSize: 18,
@@ -148,8 +166,8 @@ class DetailsScreen extends StatelessWidget {
 
               const SizedBox(height: 2),
 
-              const Text(
-                '349 ر.س',
+              Text(
+                widget.product.discountPercentage.toString(),
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
                   fontSize: 10,
@@ -163,17 +181,14 @@ class DetailsScreen extends StatelessWidget {
 
         const SizedBox(width: 12),
 
-        // اسم المنتج والتقييم
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'فستان كتان مطرز',
+                widget.product.title.toString(),
                 textAlign: TextAlign.right,
-                style: AppStyles.bold13.copyWith(
-                  fontSize: 17,
-                ),
+                style: AppStyles.bold13.copyWith(fontSize: 17),
               ),
 
               const SizedBox(height: 4),
@@ -181,19 +196,10 @@ class DetailsScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Text(
-                    '124 تقييمًا',
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-
                   const SizedBox(width: 5),
 
-                  const Text(
-                    '4.8',
+                  Text(
+                    widget.product.rating.toString(),
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
@@ -203,71 +209,11 @@ class DetailsScreen extends StatelessWidget {
 
                   const SizedBox(width: 3),
 
-                  const Icon(
-                    Icons.star,
-                    size: 11,
-                    color: AppColors.star,
-                  ),
+                  const Icon(Icons.star, size: 11, color: AppColors.star),
                 ],
               ),
             ],
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildColorSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        const Text(
-          'اللون',
-          textDirection: TextDirection.rtl,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-        const Gap(8),
-
-        ColorSelector(
-          colors: const [
-            AppColors.white,
-            Color(0xffC8A88C),
-            Color(0xff5A5A5A),
-            Color(0xff8E9B8C),
-          ],
-          initialSelectedIndex: 0,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSizeSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        const Text(
-          'المقاس',
-          textDirection: TextDirection.rtl,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-        const Gap(8),
-
-        const SizeSelector(
-          sizes: [
-            'S',
-            'M',
-            'L',
-            'XL',
-          ],
-          initialSelectedIndex: 1,
         ),
       ],
     );
@@ -280,17 +226,13 @@ class DetailsScreen extends StatelessWidget {
         const Text(
           'الوصف',
           textDirection: TextDirection.rtl,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
         ),
 
         const Gap(8),
 
-        const Text(
-          'فستان صيفي من الكتان الطبيعي 100% بتطريز يدوي على الصدر. '
-              'قصة واسعة مريحة وأكمام واسعة مناسبة للمناسبات النهارية.',
+        Text(
+          widget.product.description.toString(),
           textDirection: TextDirection.rtl,
           textAlign: TextAlign.right,
           style: TextStyle(

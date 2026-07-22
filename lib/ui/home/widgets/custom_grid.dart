@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/data/home/models/product_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../details/details_screen.dart';
 import '../../widgets/product_card.dart';
 
 class CustomGrid extends StatelessWidget {
@@ -22,12 +23,18 @@ class CustomGrid extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final ProductModel product = products[index];
-        return ProductCard(
-          title: product.title,
-          price: '${product.price.toStringAsFixed(2)} ر.س',
-          rating: product.rating.toString(),
-          imageUrl: product.thumbnail,
-          onFavoriteTap: () {},
+        return InkWell(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DetailsScreen(product: product)));
+          },
+          child: ProductCard(
+            title: product.title,
+            price: '${product.price.toStringAsFixed(2)} ر.س',
+            rating: product.rating.toString(),
+            imageUrl: product.thumbnail,
+            onFavoriteTap: () {},
+          ),
         );
       },
     );
