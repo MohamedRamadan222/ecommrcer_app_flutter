@@ -1,6 +1,9 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+
+import '../../../cubits/home/products/products_cubit.dart';
 
 class CustomTextFieldHomeScreen extends StatelessWidget {
   const CustomTextFieldHomeScreen({super.key});
@@ -17,8 +20,11 @@ class CustomTextFieldHomeScreen extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
             ),
-child: TextFormField(
-               style: TextStyle(
+            child: TextFormField(
+              onChanged: (value) {
+                context.read<ProductsCubit>().searchProducts(value);
+              },
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2,

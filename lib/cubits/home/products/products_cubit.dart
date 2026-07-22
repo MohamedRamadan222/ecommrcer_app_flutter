@@ -68,4 +68,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(state.copyWith(selectedCategory: slug));
     print('new selectedCategory: ${state.selectedCategory}');
   }
+  void searchProducts(String query) {
+    emit(state.copyWith(searchQuery: query));
+  }
 }

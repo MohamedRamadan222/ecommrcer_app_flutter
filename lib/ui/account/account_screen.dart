@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../../core/storage/user_storage.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_styles.dart';
 import '../widgets/account_menu_item.dart';
@@ -67,8 +68,12 @@ class AccountScreen extends StatelessWidget {
           const Spacer(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('سارة العتيبي', style: AppStyles.bold13.copyWith(fontSize: 18)),
+              Text(
+                UserStorage.getUser()?.username ?? '',
+                style: AppStyles.bold13.copyWith(fontSize: 18),
+              ),
               const Gap(4),
               Text(
                 '+966 55 123 4567',
@@ -108,28 +113,43 @@ class AccountScreen extends StatelessWidget {
       children: [
         AccountMenuItem(
           title: 'طلباتي',
-          icon: const Icon(CupertinoIcons.cart, color: AppColors.textUnselected),
+          icon: const Icon(
+            CupertinoIcons.cart,
+            color: AppColors.textUnselected,
+          ),
           badge: ' 2 نشط',
         ),
         AccountMenuItem(
           title: 'العناوين',
-          icon: const Icon(Icons.location_on_outlined, color: AppColors.textUnselected),
+          icon: const Icon(
+            Icons.location_on_outlined,
+            color: AppColors.textUnselected,
+          ),
           badge: null,
         ),
         AccountMenuItem(
           title: 'طرق الدفع',
-          icon: const Icon(Icons.wallet_outlined, color: AppColors.textUnselected),
+          icon: const Icon(
+            Icons.wallet_outlined,
+            color: AppColors.textUnselected,
+          ),
           badge: null,
         ),
         AccountMenuItem(
           title: 'كوبونات الخصم',
-          icon: const Icon(Icons.sell_outlined, color: AppColors.textUnselected),
+          icon: const Icon(
+            Icons.sell_outlined,
+            color: AppColors.textUnselected,
+          ),
           badge: '3',
         ),
         const Gap(16),
         AccountMenuItem(
           title: 'الإعدادات',
-          icon: const Icon(CupertinoIcons.settings, color: AppColors.textUnselected),
+          icon: const Icon(
+            CupertinoIcons.settings,
+            color: AppColors.textUnselected,
+          ),
           badge: null,
         ),
         AccountMenuItem(
