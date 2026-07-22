@@ -1,9 +1,12 @@
+import 'package:ecommerce_app/data/home/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/product_card.dart';
 
 class CustomGrid extends StatelessWidget {
-  const CustomGrid({super.key});
+  final List<ProductModel> products;
+
+  const CustomGrid({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +19,14 @@ class CustomGrid extends StatelessWidget {
         crossAxisSpacing: 16,
         mainAxisExtent: 245,
       ),
-      itemCount: 10,
+      itemCount: products.length,
       itemBuilder: (context, index) {
+        final ProductModel product = products[index];
         return ProductCard(
-          title: 'فستان كتان مطرز',
-          price: '349 ر.س',
-          rating: '4.8',
+          title: product.title,
+          price: '${product.price.toStringAsFixed(2)} ر.س',
+          rating: product.rating.toString(),
+          imageUrl: product.thumbnail,
           onFavoriteTap: () {},
         );
       },

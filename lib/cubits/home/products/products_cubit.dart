@@ -62,4 +62,10 @@ class ProductsCubit extends Cubit<ProductsState> {
       );
     }
   }
+
+  void selectCategory(String? slug) {
+    print('selectCategory called with: $slug'); // مؤقت للتجربة
+    emit(state.copyWith(selectedCategory: slug));
+    print('new selectedCategory: ${state.selectedCategory}');
+  }
 }

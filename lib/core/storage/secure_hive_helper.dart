@@ -4,7 +4,6 @@ import 'package:ecommerce_app/data/login/models/user_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 
-import '../../data/login/models/user_model.dart';
 
 class SecureHiveHelper {
   SecureHiveHelper._();

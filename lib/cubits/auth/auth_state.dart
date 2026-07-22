@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/data/login/models/user_model.dart';
 
-import '../../data/login/models/user_model.dart';
 
 enum AuthStatus { initial, loading, success, error }
 

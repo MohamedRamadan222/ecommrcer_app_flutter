@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../../core/storage/user_storage.dart';
 import '../../constants/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,6 +15,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: AppColors.bg,
+      surfaceTintColor: Colors.transparent,
       elevation: 0,
       scrolledUnderElevation: 0,
       toolbarHeight: 95,
@@ -23,9 +26,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'مرحبًا سارة',
-            style: TextStyle(
+          Text(
+            'hello  ${UserStorage.getUser()?.username ?? ''}',
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
               color: AppColors.textSecondary,

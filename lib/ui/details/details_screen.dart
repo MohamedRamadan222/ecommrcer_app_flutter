@@ -7,7 +7,6 @@ import '../constants/app_colors.dart';
 import '../constants/app_styles.dart';
 import 'widgets/add_to_cart_bar.dart';
 import 'widgets/color_selector.dart';
-import 'widgets/description_section.dart';
 import 'widgets/details_action_button.dart';
 import 'widgets/image_gallery_indicator.dart';
 import 'widgets/size_selector.dart';

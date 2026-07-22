@@ -1,15 +1,32 @@
+import 'package:ecommerce_app/cubits/home/categories/categories_cubit.dart';
+import 'package:ecommerce_app/cubits/home/products/products_cubit.dart';
+import 'package:ecommerce_app/ui/home/widgets/categories_selector_section.dart';
 import 'package:ecommerce_app/ui/home/widgets/category_selector.dart';
 import 'package:ecommerce_app/ui/home/widgets/custom_app_bar.dart';
 import 'package:ecommerce_app/ui/home/widgets/custom_grid.dart';
 import 'package:ecommerce_app/ui/home/widgets/custom_text_field_home_screen.dart';
 import 'package:ecommerce_app/ui/home/widgets/discount_banner.dart';
+import 'package:ecommerce_app/ui/home/widgets/products_grid_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_styles.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CategoriesCubit>().getCategories();
+    context.read<ProductsCubit>().getProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +43,7 @@ class HomeScreen extends StatelessWidget {
               Gap(16),
               DiscountBanner(),
               Gap(16),
-              CategorySelector(),
+              CategoriesSelectorSection(),
               Gap(16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Gap(16),
-              CustomGrid()
+              ProductsGridSection()
             ],
           ),
         ),
